@@ -108,6 +108,21 @@ export default function ProductDetail() {
       type: "ADD",
       payload: { id: product.id, name: product.name, price: product.price, quantity: quantity }
     });
+    
+    // Google Analytics: Track add to cart event
+    if (window.gtag) {
+      window.gtag('event', 'add_to_cart', {
+        currency: 'GBP',
+        value: product.price * quantity,
+        items: [{
+          item_id: product.id,
+          item_name: product.name,
+          price: product.price,
+          quantity: quantity
+        }]
+      });
+    }
+    
     setShowCartPopup(true);
   };
 

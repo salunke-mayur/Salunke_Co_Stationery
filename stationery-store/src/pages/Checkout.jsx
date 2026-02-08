@@ -29,8 +29,26 @@ export default function Checkout() {
       return;
     }
 
+    // Generate order ID for tracking
+    const orderId = `SC${Math.floor(Math.random() * 90000) + 10000}`;
+
+    // Google Analytics: Track purchase event
+    if (window.gtag) {
+      window.gtag('event', 'purchase', {
+        transaction_id: orderId,
+        currency: 'GBP',
+        value: finalTotal,
+        items: cart.map(item => ({
+          item_id: item.id,
+          item_name: item.name,
+          price: item.price,
+          quantity: item.quantity
+        }))
+      });
+    }
+
     dispatch({ type: "CLEAR" });
-    navigate("/success", { state: { name: formData.name } });
+    navigate("/success", { state: { name: formData.name, orderId: orderId } });
   }
 
   const inputStyle = {

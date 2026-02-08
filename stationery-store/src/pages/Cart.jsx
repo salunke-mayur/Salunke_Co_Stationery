@@ -10,7 +10,41 @@ export default function Cart() {
   };
 
   const removeItem = (id) => {
+    const item = cart.find(item => item.id === id);
+    
+    // Google Analytics: Track remove from cart event
+    if (window.gtag && item) {
+      window.gtag('event', 'remove_from_cart', {
+        currency: 'GBP',
+        value: item.price * item.quantity,
+        items: [{
+          item_id: item.id,
+          item_name: item.name,
+          price: item.price,
+          quantity: item.quantity
+        }]
+      });
+    }
+    
     dispatch({ type: "REMOVE", payload: { id } });
+  };
+
+  const handleCheckout = () => {
+    // Google Analytics: Track begin checkout event
+    if (window.gtag) {
+      window.gtag('event', 'begin_checkout', {
+        currency: 'GBP',
+        value: total >= 50 ? total : total + 5,
+        items: cart.map(item => ({
+          item_id: item.id,
+          item_name: item.name,
+          price: item.price,
+          quantity: item.quantity
+        }))
+      });
+    }
+    
+    navigate('/checkout');
   };
 
   const containerStyle = {
@@ -311,7 +345,7 @@ export default function Cart() {
           </div>
 
           <button
-            onClick={() => navigate('/checkout')}
+            onClick={handleCheckout}
             style={{
               width: '100%',
               backgroundColor: '#2c2c2c',

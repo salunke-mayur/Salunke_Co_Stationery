@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 export default function Success() {
   const location = useLocation();
   const name = location.state?.name || 'Guest';
-  const orderNumber = `SC${Math.floor(Math.random() * 90000) + 10000}`;
+  const orderNumber = location.state?.orderId || `SC${Math.floor(Math.random() * 90000) + 10000}`;
 
   return (
     <div style={{
