@@ -11,7 +11,7 @@ export default function Cart() {
 
   const removeItem = (id) => {
     const item = cart.find(item => item.id === id);
-    
+
     // Google Analytics: Track remove from cart event
     if (window.gtag && item) {
       window.gtag('event', 'remove_from_cart', {
@@ -25,7 +25,7 @@ export default function Cart() {
         }]
       });
     }
-    
+
     dispatch({ type: "REMOVE", payload: { id } });
   };
 
@@ -43,7 +43,7 @@ export default function Cart() {
         }))
       });
     }
-    
+
     navigate('/checkout');
   };
 
