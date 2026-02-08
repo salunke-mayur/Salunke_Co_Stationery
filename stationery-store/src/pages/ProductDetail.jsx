@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import productNotebook from "../assets/product-notebook.jpg";
@@ -77,6 +77,21 @@ export default function ProductDetail() {
   const [showCartPopup, setShowCartPopup] = useState(false);
 
   const product = products[id];
+
+  // Google Analytics: Track view_item event when product page loads
+  useEffect(() => {
+    if (product && window.gtag) {
+      window.gtag('event', 'view_item', {
+        currency: 'GBP',
+        value: product.price,
+        items: [{
+          item_id: product.id,
+          item_name: product.name,
+          price: product.price
+        }]
+      });
+    }
+  }, [product]);
 
   if (!product) {
     return (
