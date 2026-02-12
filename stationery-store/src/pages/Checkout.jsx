@@ -39,7 +39,7 @@ export default function Checkout() {
         currency: 'GBP',
         value: finalTotal,
         items: cart.map(item => ({
-          item_id: `SKU_${item.id}`,
+          item_id: `${item.id}`,
           item_name: item.name,
           price: item.price,
           quantity: item.quantity
@@ -50,9 +50,9 @@ export default function Checkout() {
     // Meta Pixel: Track Purchase event
     if (window.fbq) {
       window.fbq('track', 'Purchase', {
-        content_ids: cart.map(item => `SKU_${item.id}`),
+        content_ids: cart.map(item => `${item.id}`),
         contents: cart.map(item => ({
-          id: `SKU_${item.id}`,
+          id: `${item.id}`,
           quantity: item.quantity
         })),
         content_type: 'product',

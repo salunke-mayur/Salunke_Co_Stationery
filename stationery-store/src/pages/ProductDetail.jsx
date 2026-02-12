@@ -88,7 +88,7 @@ export default function ProductDetail() {
           currency: 'GBP',
           value: product.price,
           items: [{
-            item_id: `SKU_${product.id}`,
+            item_id: `${product.id}`,
             item_name: product.name,
             item_brand: 'Salunke & Co.',
             item_category: 'Stationery',
@@ -101,7 +101,7 @@ export default function ProductDetail() {
       // Meta Pixel
       if (window.fbq) {
         window.fbq('track', 'ViewContent', {
-          content_ids: [`SKU_${product.id}`],
+          content_ids: [`${product.id}`],
           content_name: product.name,
           content_type: 'product',
           content_category: 'Stationery',
@@ -149,7 +149,7 @@ export default function ProductDetail() {
         currency: 'GBP',
         value: product.price * quantity,
         items: [{
-          item_id: `SKU_${product.id}`,
+          item_id: `${product.id}`,
           item_name: product.name,
           item_brand: 'Salunke & Co.',
           item_category: 'Stationery',
@@ -162,7 +162,7 @@ export default function ProductDetail() {
     // Meta Pixel: Track AddToCart event
     if (window.fbq) {
       window.fbq('track', 'AddToCart', {
-        content_ids: [`SKU_${product.id}`],
+        content_ids: [`${product.id}`],
         content_name: product.name,
         content_type: 'product',
         value: product.price * quantity,
